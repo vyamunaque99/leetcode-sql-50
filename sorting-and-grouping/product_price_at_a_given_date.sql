@@ -1,0 +1,1 @@
+select distinct p.product_id,coalesce(tmp.new_price,10) price from Products p left join (select product_id, new_price from Products where (product_id,change_date) in(select product_id,max(change_date) change_date from Products where change_date<=str_to_date('2019-08-16','%Y-%m-%d') group by 1)) tmp on p.product_id=tmp.product_id;
